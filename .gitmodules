@@ -1,3 +1,6 @@
 [submodule "deps/balancer-v2-monorepo"]
 	path = deps/balancer-v2-monorepo
 	url = https://github.com/balancer-labs/balancer-v2-monorepo.git
+[submodule "deps/uniswap-v3-core"]
+	path = deps/uniswap-v3-core
+	url = https://github.com/Uniswap/v3-core.git
