@@ -2,6 +2,35 @@
 # yarn lockfile v1
 
 
+"@balancer-labs/v2-asset-manager-utils@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/v2-asset-manager-utils/-/v2-asset-manager-utils-0.2.0.tgz#e7570fdc1b621047017a4653d8f06362477a24d2"
+  integrity sha512-6ti1pzbpgB5aT1WzbGwo69ILTNAJdAnaJcw3L9QB2aBsAhQ41H+MF3tjPvuv6P84RgJ9z42EhtwLYZqklRF0rg==
+  dependencies:
+    "@balancer-labs/v2-solidity-utils" "2.0.0"
+    "@balancer-labs/v2-vault" "2.0.0"
+
+"@balancer-labs/v2-pool-utils@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/v2-pool-utils/-/v2-pool-utils-2.0.1.tgz#a98b7b10a8f7d6cbb8890394427334943eda81e8"
+  integrity sha512-Xt3d8LqJnqq5JkuSgvf0sZuWqaywg9JxrCT1myVsG6zgbtfvcraJgSCLERUdqxP47aUPHwKvm5/+mdT9xayCXA==
+  dependencies:
+    "@balancer-labs/v2-asset-manager-utils" "0.2.0"
+    "@balancer-labs/v2-solidity-utils" "2.0.0"
+    "@balancer-labs/v2-vault" "2.0.0"
+
+"@balancer-labs/v2-solidity-utils@2.0.0", "@balancer-labs/v2-solidity-utils@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/v2-solidity-utils/-/v2-solidity-utils-2.0.0.tgz#a3d8942873b4adc216c8276d150743ede5c459ca"
+  integrity sha512-OB+05vJqrs35B1d40y7tnSm6oYWnsmfRa/wpI2owJXhwx/8qr2buE+RDmT0x6Upr/c7wBdUh8v4UVk9l0+CNiA==
+
+"@balancer-labs/v2-vault@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/v2-vault/-/v2-vault-2.0.0.tgz#def6f8d4b777f421224118e473b5115f09819768"
+  integrity sha512-GwPY84j6g7OY1z13wRYYGQeupb6DI3U+s22Ebg2v32djS9CnPzM04GJapURRbKZkpraUOYIcqhEF3Cm1AafAKg==
+  dependencies:
+    "@balancer-labs/v2-solidity-utils" "2.0.0"
+
 "@ensdomains/ens@^0.4.4":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@ensdomains/ens/-/ens-0.4.5.tgz#e0aebc005afdc066447c6e22feb4eda89a5edbfc"

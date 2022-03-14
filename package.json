@@ -19,6 +19,8 @@
     "solidity-coverage": "^0.7.17"
   },
   "dependencies": {
+    "@balancer-labs/v2-pool-utils": "^2.0.1",
+    "@balancer-labs/v2-solidity-utils": "^2.0.0",
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
     "@openzeppelin/contracts": "^4.4.1"
   }
