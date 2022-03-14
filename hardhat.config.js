@@ -21,12 +21,12 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 const config = {
   solidity: {
-    version: "0.8.11",
+    version: "0.7.6",
     settings: {
       optimizer: {
         enabled: true,
         runs: 200
-      }
+      },
     }
   },
   networks: {},
