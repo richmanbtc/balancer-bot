@@ -1,3 +1,62 @@
+trading bot using Balancer v2 custom pool
+
+## 実装メモ
+
+実装方針
+
+- WeightedPoolをベースに、weightをストラテジーで変化させる
+- weightが変化しても問題無いか、ConvergentCurvePoolとManagedPoolも参考にする
+
+ストラテジー
+
+- WBTC/USDC
+- 平均足戦略を使う (売りはウェイト10:90で、買いは90:10)
+- uniswap v3 oracleを使って近似計算 (オラクル攻撃に注意。多分過去データ使えば大丈夫)
+
+重み変更 
+weightが急激に変化すると取引コストが発生する (価格が急に乖離するので、アービトラージで資金を抜かれる)
+ゆっくり変化させるとダッチオークションみたいになって多分コストが減る (ManagedPoolの実装)
+
+ManagedPool updateWeightsGradually
+重み変更が実装されている。
+この中で、重み計算以外の処理をしていなければ、WeightedPoolベースの改造で問題無さそう。
+_tokenStateとMiscDataは一つの変数にエンコードされてる(gas代減るの？)。
+時刻に依存するコードを探せば良さそう
+_calculateWeightChangeProgressで進捗が計算されている。
+vaultを呼ぶ場所を探しても、重み計算関連はgetterからしか呼ばれていないから、
+多分、WeightedPoolベースでgetterを書き換えれば、戦略実装できそう。
+
+ManagedPoolとWeightedPoolはどちらもBaseWeightedPoolがベースだから、
+WeightedPoolで実装されている関数を比較すれば理解できそう。
+
+以下を実装すれば良い
+
+- _getNormalizedWeight
+- _getNormalizedWeights
+- _getNormalizedWeightsAndMaxWeightIndex
+- _getMaxTokens
+- _getTotalTokens
+- _scalingFactor
+- _scalingFactors
+
+_maxWeightTokenIndexは実装変える必要ある。
+_getNormalizedWeightsAndMaxWeightIndexで返せば良い
+
+重み合計はFixedPoint.ONE
+https://github.com/balancer-labs/balancer-v2-monorepo/blob/a62e10f948c5de65ddfd6d07f54818bf82379eea/pkg/solidity-utils/contracts/math/FixedPoint.sol
+mulDownとかで掛け算できる
+
+コードの変更が激しくてnpmのバージョンと合わない。
+hardhatはsolcのremappingに対応していないから、
+合うバージョン探した。
+
+参考コード
+
+- https://github.com/balancer-labs/balancer-v2-monorepo/tree/master/pkg/pool-weighted/contracts
+- https://github.com/element-fi/elf-contracts/blob/main/contracts/ConvergentCurvePool.sol
+
+
+
 # AlphaSea
 
 [AlphaSea](https://alphasea.io/) is a decentralized marketplace for market alpha.
