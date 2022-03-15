@@ -1,19 +1,22 @@
 
-const _ = require('lodash');
+// kovan
+// const vault = '0xBA12222222228d8Ba445958a75a0704d566BF2C8';
+// const tokens = [
+//     '0xd0a1e359811322d97991e03f863a0c30c2cf029c', // WETH
+//     '0xdcfab8057d08634279f8201b55d311c2a67897d2', // USDC
+// ]
+// const uniswapV3Pool = '0x5502D6b59377906fe1C8888F74504A0EB753057f' // 適当なもの(テストなので)
 
-const tournaments = [
-    {
-        'tournamentId': 'crypto_daily',
-        'executionStartAt': 30 * 60, // 0:30, 2:30, 4:30 ...
-        'predictionTime': 8 * 60,
-        'sendingTime': 16 * 60,
-        'executionPreparationTime': 6 * 60,
-        'executionTime': 2 * 60 * 60,
-        'publicationTime': 30 * 60,
-        'description': 'https://github.com/alphasea-dapp/alphasea/tree/master/tournaments/crypto_daily.md',
-    },
+// eth mainnet
+const vault = '0xBA12222222228d8Ba445958a75a0704d566BF2C8';
+const tokens = [
+    '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
+    '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
 ]
+const uniswapV3Pool = '0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8' // WETH/USDC
 
 module.exports = {
-    tournaments: tournaments,
+    vault: vault,
+    tokens: tokens,
+    uniswapV3Pool: uniswapV3Pool,
 }

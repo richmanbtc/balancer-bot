@@ -29,7 +29,14 @@ const config = {
       },
     }
   },
-  networks: {},
+  networks: {
+    hardhat: {
+      forking: {
+        url: "https://eth-mainnet.alchemyapi.io/v2/ma1dfkfJlX_DmKwqOiZWP_MW9jBusZQQ",
+        blockNumber: 14392000
+      }
+    }
+  },
   etherscan: {
     apiKey: {
       mainnet: process.env.ETHERSCAN_API_KEY,
@@ -50,6 +57,10 @@ if (process.env.POLYGON_PRIVATE_KEY) {
 if (process.env.ROPSTEN_PRIVATE_KEY) {
   config.networks.ropsten = {
     url: 'https://ropsten.infura.io/v3/a3313d9ab92742e3bb3aef9c78c859d6',
+    accounts: [process.env.ROPSTEN_PRIVATE_KEY]
+  }
+  config.networks.kovan = {
+    url: 'https://eth-kovan.alchemyapi.io/v2/qPRG7nh-ToqPsWO4ftuBDGVmZ1D8qM1b',
     accounts: [process.env.ROPSTEN_PRIVATE_KEY]
   }
   config.networks.mumbai = {

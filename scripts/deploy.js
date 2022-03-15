@@ -16,13 +16,15 @@ async function main() {
     // await hre.run('compile');
 
     // We get the contract to deploy
-    const Alphasea = await hre.ethers.getContractFactory("Alphasea");
-    const alphasea = await Alphasea.deploy(
-        config.tournaments,
+    const BotPool = await hre.ethers.getContractFactory("BotPool");
+    const pool = await BotPool.deploy(
+        config.vault,
+        config.tokens,
+        config.uniswapV3Pool,
     );
-    await alphasea.deployed();
+    await pool.deployed();
 
-    console.log("Alphasea deployed to:", alphasea.address);
+    console.log("BotPool deployed to:", pool.address);
     console.log('this address is wrong when network is polygon')
 }
 
