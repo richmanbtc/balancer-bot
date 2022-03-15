@@ -55,7 +55,16 @@ hardhatはsolcのremappingに対応していないから、
 - https://github.com/balancer-labs/balancer-v2-monorepo/tree/master/pkg/pool-weighted/contracts
 - https://github.com/element-fi/elf-contracts/blob/main/contracts/ConvergentCurvePool.sol
 
+uniswap v3 poolとbalancer vaultに依存するので、
+mainet forkingでテストする。
 
+```bash
+npx hardhat node
+npx hardhat test
+```
+
+uniswap v3 poolのoracleは古すぎると"OLD"でrevertされる。
+24日前はダメだった。24時間くらいだと大丈夫だった
 
 # AlphaSea
 
