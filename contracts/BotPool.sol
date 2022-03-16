@@ -44,11 +44,15 @@ contract BotPool is BaseBotPool {
             ticks[i] = (tickCumulatives[i + 1] - tickCumulatives[i]) / (secondsAgos[i] - secondsAgos[i + 1]);
         }
 
-        int rsi = 0;
+        int sumAbsDiff = 0;
         for (uint i = 0; i < ticks.length - 1; i++) {
-            rsi += ticks[i] < ticks[i + 1] ? int(1) : -1;
+            sumAbsDiff += abs(ticks[i + 1] - ticks[i]);
         }
 
-        return int8(127 * rsi / int(ticks.length - 1));
+        return int8(127 * (ticks[ticks.length - 1] - ticks[0]) / (1 + sumAbsDiff));
+    }
+
+    function abs(int x) private pure returns (int) {
+        return x >= 0 ? x : -x;
     }
 }

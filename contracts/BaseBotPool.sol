@@ -81,11 +81,11 @@ abstract contract BaseBotPool is BaseWeightedPool {
     }
 
     function _getNormalizedWeight0(int8 signal) private view returns (uint256) {
-        return FixedPoint.ONE / 2 + uint256(int256(_signalScale) * int256(signal));
+        return FixedPoint.ONE / 2 - uint256(int256(_signalScale) * int256(signal));
     }
 
     function _getNormalizedWeight1(int256 signal) private view returns (uint256) {
-        return FixedPoint.ONE / 2 - uint256(int256(_signalScale) * int256(signal));
+        return FixedPoint.ONE / 2 + uint256(int256(_signalScale) * int256(signal));
     }
 
     function _getNormalizedWeight(IERC20 token) internal view virtual override returns (uint256) {

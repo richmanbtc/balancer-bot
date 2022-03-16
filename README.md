@@ -66,6 +66,24 @@ npx hardhat test
 uniswap v3 poolのoracleは古すぎると"OLD"でrevertされる。
 24日前はダメだった。24時間くらいだと大丈夫だった
 
+トークンの順番
+トークンはアドレスでソートしないといけない (UNSORTED_ARRAY エラー)
+https://dev.balancer.fi/resources/joins-and-exits/pool-joins
+
+getPoolIdでpool id取得できる
+https://etherscan.io/address/0x32296969ef14eb0c6d29669c550d4a0449130230/advanced#readContract
+
+コントラクトのデプロイにガス代がかかる。
+戦略部分だけ置き換えられるようにすると良いかも
+
+joinKind
+https://dev.balancer.fi/resources/joins-and-exits/pool-joins
+↑に書かれているABIでエンコード
+
+usdcは6 decimals
+https://blog.coinbase.com/introduction-to-building-on-defi-with-ethereum-and-usdc-part-1-ea952295a6e2
+https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48#readProxyContract
+
 # AlphaSea
 
 [AlphaSea](https://alphasea.io/) is a decentralized marketplace for market alpha.

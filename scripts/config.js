@@ -14,9 +14,13 @@ const tokens = [
     '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
 ]
 const uniswapV3Pool = '0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8' // WETH/USDC
+const weth = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+const uniswapV3Router = '0xE592427A0AEce92De3Edee1F18E0157C05861564'
 
 module.exports = {
     vault: vault,
     tokens: tokens,
     uniswapV3Pool: uniswapV3Pool,
+    weth: weth,
+    uniswapV3Router: uniswapV3Router,
 }
