@@ -85,6 +85,7 @@ describe("integraion", function () {
 
             console.log('usdc balance ' + (await usdc.balanceOf(this.myAddress.address)))
             console.log('weth balance ' + (await weth.balanceOf(this.myAddress.address)))
+            console.log('lp token balance ' + (await this.pool.balanceOf(this.myAddress.address)))
 
             const poolId = await this.pool.getPoolId()
             const userData = hre.ethers.utils.defaultAbiCoder.encode(
@@ -116,6 +117,7 @@ describe("integraion", function () {
             console.log('joinPool finished')
             console.log('usdc balance ' + (await usdc.balanceOf(this.myAddress.address)))
             console.log('weth balance ' + (await weth.balanceOf(this.myAddress.address)))
+            console.log('lp token balance ' + (await this.pool.balanceOf(this.myAddress.address)))
 
             const swapStruct = {
                 poolId: poolId,
@@ -143,10 +145,39 @@ describe("integraion", function () {
             console.log('swap finished')
             console.log('usdc balance ' + (await usdc.balanceOf(this.myAddress.address)))
             console.log('weth balance ' + (await weth.balanceOf(this.myAddress.address)))
+            console.log('lp token balance ' + (await this.pool.balanceOf(this.myAddress.address)))
 
+            const EXACT_BPT_IN_FOR_TOKENS_OUT = 1;
 
-            const result = await this.pool.getSignal()
-            expect(result).to.equal(0)
+            const userDataExit = hre.ethers.utils.defaultAbiCoder.encode(
+                ['uint', 'uint'],
+                [
+                    EXACT_BPT_IN_FOR_TOKENS_OUT,
+                    (await this.pool.balanceOf(this.myAddress.address)),
+                ]
+            )
+
+            await (await vault.exitPool(
+                poolId,
+                this.myAddress.address,
+                this.myAddress.address,
+                {
+                    assets: config.tokens,
+                    minAmountsOut: [
+                        0,
+                        0,
+                    ],
+                    userData: userDataExit,
+                    toInternalBalance: false,
+                },
+                { value: 0 }
+            )).wait()
+
+            console.log('exitPool finished')
+            console.log('usdc balance ' + (await usdc.balanceOf(this.myAddress.address)))
+            console.log('weth balance ' + (await weth.balanceOf(this.myAddress.address)))
+            console.log('lp token balance ' + (await this.pool.balanceOf(this.myAddress.address)))
+
         });
     })
 })
