@@ -3,7 +3,9 @@ const { ethers } = require("hardhat");
 const config = require('../scripts/config')
 const hre = require("hardhat");
 
-const daySeconds = 24 * 60 * 60
+const BigNumber = (x) => {
+    return hre.ethers.BigNumber.from(x)
+};
 
 describe("integraion", function () {
     before(async function () {
@@ -60,6 +62,8 @@ describe("integraion", function () {
                 }
             )).wait()
 
+            console.log('exactInputSingle finished')
+
             const vault = await hre.ethers.getContractAt(
                 "IVault",
                 config.vault
@@ -108,6 +112,38 @@ describe("integraion", function () {
                 },
                 { value: 0 }
             )).wait()
+
+            console.log('joinPool finished')
+            console.log('usdc balance ' + (await usdc.balanceOf(this.myAddress.address)))
+            console.log('weth balance ' + (await weth.balanceOf(this.myAddress.address)))
+
+            const swapStruct = {
+                poolId: poolId,
+                kind: 0, // GIVEN_IN
+                assetIn: config.tokens[0],
+                assetOut: config.tokens[1],
+                amount: 100000 * 100,
+                userData: '0x'
+            };
+
+            const fundStruct = {
+                sender: this.myAddress.address,
+                recipient: this.myAddress.address,
+                fromInternalBalance: false,
+                toInternalBalance: false
+            };
+
+            await (await vault.swap(
+                swapStruct,
+                fundStruct,
+                BigNumber('20000000000000'),
+                BigNumber('2000000000'),
+            )).wait()
+
+            console.log('swap finished')
+            console.log('usdc balance ' + (await usdc.balanceOf(this.myAddress.address)))
+            console.log('weth balance ' + (await weth.balanceOf(this.myAddress.address)))
+
 
             const result = await this.pool.getSignal()
             expect(result).to.equal(0)
