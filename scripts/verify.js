@@ -8,9 +8,11 @@ const config = require('./config')
 
 async function main() {
     await hre.run("verify:verify", {
-        address: '0x2499Ab13E231a6862ccbB2279aF9526481ad4bAc',
+        address: '0xcCA8462288A499B695d2457c57730eC7efec700c',
         constructorArguments: [
-            config.tournaments
+            config.vault,
+            config.tokens,
+            config.uniswapV3Pool,
         ],
     });
 }

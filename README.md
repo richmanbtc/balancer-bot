@@ -84,6 +84,68 @@ usdcは6 decimals
 https://blog.coinbase.com/introduction-to-building-on-defi-with-ethereum-and-usdc-part-1-ea952295a6e2
 https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48#readProxyContract
 
+balancerのUIからデプロイしたプールを表示してみたら
+poolTypeがundefinedでエラーになった。
+コードを見るとpoolTypeはsolidityに直接的にあるものではないらしい。
+balancer uiはthegraphでプール情報を取得している。
+graphqlを直接叩いたら無かった。
+https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-polygon-v2/graphql
+
+```text
+query { 
+  pools (
+    first: 1000,
+    where: {
+      id: "0xcca8462288a499b695d2457c57730ec7efec700c0002000000000000000003d4"
+    }
+  ) {
+      id 
+      address
+      poolType 
+      swapFee
+      tokensList
+      totalLiquidity 
+      totalSwapVolume
+      totalSwapFee 
+      totalShares
+      owner 
+      factory
+      amp 
+      createTime
+      swapEnabled 
+      tokens { 
+        address
+        balance
+        weight
+        priceRate
+      }
+    }
+  }
+```
+
+vaultのPoolRegisteredイベントが出てるから、
+知る機会はあるけど、ここからインデックスしてないのかも。
+https://polygonscan.com/tx/0x8b7f0d2af82d333c8b98fd011bd7bc5956ee3e5dc2ec9b5505198f48485eb311#eventlog
+
+balancer v2 subgraph
+https://github.com/balancer-labs/balancer-subgraph-v2
+
+ここにbalancer本家ではないプールが書いてある。
+ここに追記しないとbalancer側で認識しないのかも。
+https://github.com/balancer-labs/balancer-subgraph-v2/blob/master/src/mappings/poolFactory.ts#L16
+ここでモデル作ってる
+https://github.com/balancer-labs/balancer-subgraph-v2/blob/master/src/mappings/poolFactory.ts#L156
+
+balancerのルーティングからは見れるのか？
+https://dev.balancer.fi/resources/smart-order-router
+https://github.com/balancer-labs/balancer-sor
+
+balancer本家ではないプールが明記されている
+https://github.com/balancer-labs/balancer-sor/blob/a604b621fa10136e8f84fa41d6f4382362d12fc5/tsconfig.json#L22
+poolTypeが無いと扱えないかも
+https://github.com/balancer-labs/balancer-sor/blob/master/src/pools/index.ts#L61
+https://github.com/balancer-labs/balancer-sor/blob/a604b621fa10136e8f84fa41d6f4382362d12fc5/src/routeProposal/index.ts#L46
+
 # AlphaSea
 
 [AlphaSea](https://alphasea.io/) is a decentralized marketplace for market alpha.
